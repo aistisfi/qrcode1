@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selo Verde Sustentável</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1><i class="fas fa-leaf"></i> Selo Verde Sustentável</h1>
+            <nav>
+                <a href="#ranking">Ranking</a>
+                <a href="#como-funciona">Como Funciona</a>
+                <a href="#cadastro">Cadastre-se</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-text">
+                <h2>Conectando produtores sustentáveis a consumidores conscientes</h2>
+                <p>Nosso selo reconhece e valoriza as boas práticas agrícolas que preservam o meio ambiente</p>
+                <a href="#cadastro" class="btn">Obter meu selo</a>
+            </div>
+            <div class="hero-image">
+                <img src="assets/images/farmer.png" alt="Produtor rural">
+            </div>
+        </div>
+    </section>
+
+    <section id="ranking" class="ranking-section">
+        <div class="container">
+            <h2><i class="fas fa-trophy"></i> Ranking de Produtores Sustentáveis</h2>
+            <div class="filters">
+                <input type="text" id="search-producer" placeholder="Buscar produtor...">
+                <select id="filter-region">
+                    <option value="">Todas as cidades</option>
+                    <option value="norte">Norte</option>
+                    <option value="nordeste">Nordeste</option>
+                    <option value="centro-oeste">Centro-Oeste</option>
+                    <option value="sudeste">Sudeste</option>
+                    <option value="sul">Sul</option>
+                </select>
+                <select id="filter-category">
+                    <option value="">Todas as categorias</option>
+                    <option value="hortifruti">Hortifrúti</option>
+                    <option value="graos">Grãos</option>
+                    <option value="cafe">Café</option>
+                    <option value="pecuaria">Pecuária</option>
+                </select>
+            </div>
+            
+            <div class="ranking-list" id="ranking-list">
+                <!-- Ranking será preenchido por JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <section id="como-funciona" class="how-it-works">
+        <div class="container">
+            <h2><i class="fas fa-question-circle"></i> Como Funciona</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Cadastro do Produtor</h3>
+                    <p>Preencha seu perfil e detalhe as práticas sustentáveis adotadas em sua propriedade.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Avaliação por IA</h3>
+                    <p>Nosso sistema analisa suas práticas e atribui uma pontuação de 1 a 5 estrelas.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Geração do Selo</h3>
+                    <p>Você recebe um QRCode único para colocar em seus produtos.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3>Reconhecimento</h3>
+                    <p>Consumidores escaneiam o QRCode e veem seu compromisso com a sustentabilidade.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="cadastro" class="register">
+        <div class="container">
+            <h2><i class="fas fa-user-plus"></i> Cadastre sua Propriedade</h2>
+            <form id="producer-form">
+                <div class="form-group">
+                    <label for="name">Nome do Produtor/Fazenda</label>
+                    <input type="text" id="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="location">Localização (Cidade/Estado)</label>
+                    <input type="text" id="location" required>
+                </div>
+                <div class="form-group">
+                    <label for="category">Categoria de Produção</label>
+                    <select id="category" required>
+                        <option value="">Selecione...</option>
+                        <option value="hortifruti">Hortifrúti</option>
+                        <option value="graos">Grãos</option>
+                        <option value="cafe">Café</option>
+                        <option value="pecuaria">Pecuária</option>
+                        <option value="outros">Outros</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>Práticas Sustentáveis Adotadas</label>
+                    <div class="practices-grid">
+                        <label><input type="checkbox" name="practice" value="agrofloresta"> Agrofloresta</label>
+                        <label><input type="checkbox" name="practice" value="plantio-direto"> Plantio Direto</label>
+                        <label><input type="checkbox" name="practice" value="rotacao"> Rotação de Culturas</label>
+                        <label><input type="checkbox" name="practice" value="controle-biologico"> Controle Biológico</label>
+                        <label><input type="checkbox" name="practice" value="compostagem"> Compostagem</label>
+                        <label><input type="checkbox" name="practice" value="energia-renovavel"> Energia Renovável</label>
+                        <label><input type="checkbox" name="practice" value="conservacao"> Conservação de Áreas</label>
+                        <label><input type="checkbox" name="practice" value="manejo-integrado"> Manejo Integrado</label>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="description">Descreva suas práticas sustentáveis</label>
+                    <textarea id="description" rows="4"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="photos">Fotos da propriedade (opcional)</label>
+                    <input type="file" id="photos" multiple accept="image/*">
+                </div>
+                
+                <button type="submit" class="btn">Gerar Meu Selo</button>
+            </form>
+        </div>
+    </section>
+
+    <section class="ai-recommendations">
+        <div class="container">
+            <h2><i class="fas fa-robot"></i> Recomendações de IA para sua Propriedade</h2>
+            <div class="ai-container">
+                <div class="ai-input">
+                    <h3>Informe sobre sua propriedade</h3>
+                    <textarea id="ai-description" placeholder="Descreva sua propriedade, cultivos, desafios..."></textarea>
+                    <button id="get-recommendations" class="btn">Obter Recomendações</button>
+                </div>
+                <div class="ai-output">
+                    <h3>Recomendações Personalizadas</h3>
+                    <div id="recommendations-result">
+                        <p>Nossas recomendações aparecerão aqui...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Selo Verde Sustentável</h3>
+                    <p>Conectando produtores e consumidores em prol da agricultura sustentável.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Parceiros</h3>
+                    <ul>
+                        <li>Parceiro 1 </li>
+                        <li>Parceiro 2</li>
+                  
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contato</h3>
+                    <p>contato@seloverde.com.br</p>
+                    <p>(XX) XXXX-XXXX</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Selo Verde Sustentável. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+    <script src="scripts/main.js"></script>
+    <script src="scripts/ia.js"></script>
+    <script src="scripts/qrcode.js"></script>
+</body>
+</html>

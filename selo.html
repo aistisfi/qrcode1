@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selo do Produtor | Selo Verde Sustentável</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .selo-container {
+            max-width: 800px;
+            margin: 40px auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .selo-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .selo-title {
+            color: var(--primary-color);
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        
+        .selo-badge {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 20px;
+            background-color: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 4rem;
+            box-shadow: 0 5px 15px rgba(46, 125, 50, 0.3);
+        }
+        
+        .producer-info {
+            margin-bottom: 30px;
+        }
+        
+        .info-item {
+            margin-bottom: 15px;
+            display: flex;
+        }
+        
+        .info-item i {
+            margin-right: 10px;
+            color: var(--primary-color);
+            width: 20px;
+            text-align: center;
+        }
+        
+        .practices-list {
+            margin-top: 30px;
+        }
+        
+        .practice-item {
+            background-color: var(--light-color);
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .practice-item i {
+            margin-right: 10px;
+            color: var(--primary-color);
+        }
+        
+        .verification {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid var(--gray);
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+        
+        @media (max-width: 600px) {
+            .selo-container {
+                padding: 20px;
+                margin: 20px auto;
+            }
+            
+            .selo-title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="selo-container">
+        <div class="selo-header">
+            <div class="selo-badge">
+                <i class="fas fa-leaf"></i>
+            </div>
+            <h1 class="selo-title">Selo Verde Sustentável</h1>
+            <p>Este selo atesta as práticas sustentáveis adotadas pelo produtor rural</p>
+        </div>
+        
+        <div id="producer-data">
+            <!-- Será preenchido por JavaScript -->
+            <div class="loading">
+                <i class="fas fa-spinner fa-spin"></i> Carregando informações do produtor...
+            </div>
+        </div>
+        
+        <div class="verification">
+            <p><i class="fas fa-shield-alt"></i> <strong>Verificação:</strong> Este selo foi emitido em <span id="issue-date"></span> e é válido por 1 ano.</p>
+            <p>Para verificar a autenticidade deste selo, visite <strong>seloverde.com.br/verificar</strong></p>
+        </div>
+    </div>
+
+    <script>
+        // Obtém o ID do produtor da URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const producerId = parseInt(urlParams.get('id'));
+        
+        // Dados de exemplo (em produção real, viriam de uma API)
+        const producers = [
+            {
+                id: 1,
+                name: "Fazenda UFOB",
+                location: "Barreiras, BA",
+                category: "hortifruti",
+                practices: ["agrofloresta", "compostagem", "controle-biologico"],
+                rating: 4.8,
+                description: "Produção de hortaliças orgânicas em sistema agroflorestal.",
+                fullDescription: "A Fazenda Esperança adota práticas sustentáveis desde 2010, com foco na produção de hortaliças orgânicas em sistema agroflorestal. Nossos métodos preservam o solo e a biodiversidade, garantindo alimentos saudáveis para nossos consumidores.",
+                contact: "contato@fazendaufob.com.br | (77) 99999-9999",
+                coordinates: "-23.5505, -46.6333"
+            },
+            {
+                id: 2,
+                name: "Sítio do Sol",
+                location: "Minas Gerais, MG",
+                category: "cafe",
+                practices: ["plantio-direto", "rotacao", "energia-renovavel"],
+                rating: 4.5,
+                description: "Café especial produzido com energia solar e manejo sustentável.",
+                fullDescription: "O Sítio do Sol produz café especial utilizando apenas energia solar em todo o processo. Adotamos plantio direto e rotação de culturas para preservar o solo e garantir a qualidade de nosso produto ano após ano.",
+                contact: "sitiodosol@email.com | (31) 88888-8888",
+                coordinates: "-19.9167, -43.9333"
+            },
+            {
+                id: 3,
+                name: "Estância Verde",
+                location: "Rio Grande do Sul, RS",
+                category: "pecuaria",
+                practices: ["manejo-integrado", "conservacao", "compostagem"],
+                rating: 4.2,
+                description: "Pecuária sustentável com integração lavoura-pecuária-floresta.",
+                fullDescription: "Na Estância Verde, praticamos pecuária sustentável com integração lavoura-pecuária-floresta (ILPF). Nossos animais são criados em sistema rotacionado, com bem-estar animal e preservação ambiental.",
+                contact: "estanciaverde@email.com | (51) 77777-7777",
+                coordinates: "-30.0331, -51.2300"
+            }
+        ];
+        
+        // Encontra o produtor
+        const producer = producers.find(p => p.id === producerId);
+        const producerData = document.getElementById('producer-data');
+        const issueDate = document.getElementById('issue-date');
+        
+        // Data de emissão (simulada)
+        const today = new Date();
+        issueDate.textContent = today.toLocaleDateString('pt-BR');
+        
+        if (producer) {
+            const stars = '★'.repeat(Math.round(producer.rating)) + '☆'.repeat(5 - Math.round(producer.rating));
+            
+            producerData.innerHTML = `
+                <div class="producer-info">
+                    <h2>${producer.name}</h2>
+                    <div class="info-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <strong>Localização:</strong> ${producer.location}<br>
+                            <small>Coordenadas: ${producer.coordinates}</small>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-star"></i>
+                        <div>
+                            <strong>Avaliação:</strong> ${stars} (${producer.rating.toFixed(1)}/5.0)
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-info-circle"></i>
+                        <div>
+                            <strong>Descrição:</strong> ${producer.fullDescription}
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <strong>Contato:</strong> ${producer.contact}
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="practices-list">
+                    <h3><i class="fas fa-check-circle"></i> Práticas Sustentáveis Adotadas</h3>
+                    
+                    ${producer.practices.map(practice => `
+                        <div class="practice-item">
+                            <i class="fas fa-check"></i>
+                            <span>${getPracticeName(practice)}</span>
+                        </div>
+                    `).join('')}
+                </div>
+                
+                <div class="map-container" style="margin-top: 30px;">
+                    <h3><i class="fas fa-map"></i> Localização da Propriedade</h3>
+                    <div id="map" style="height: 300px; width: 100%; background-color: #eee; margin-top: 15px; display: flex; align-items: center; justify-content: center;">
+                        <p>Mapa da propriedade apareceria aqui</p>
+                    </div>
+                    <p style="font-size: 0.8rem; margin-top: 5px; text-align: center;">
+                        <i class="fas fa-info-circle"></i> Em uma implementação real, este mapa mostraria a localização exata da propriedade.
+                    </p>
+                </div>
+            `;
+        } else {
+            producerData.innerHTML = '<p class="error">Produtor não encontrado. Este selo pode não ser válido.</p>';
+        }
+        
+        // Helper function
+        function getPracticeName(practice) {
+            const practices = {
+                'agrofloresta': 'Agrofloresta',
+                'plantio-direto': 'Plantio Direto',
+                'rotacao': 'Rotação de Culturas',
+                'controle-biologico': 'Controle Biológico',
+                'compostagem': 'Compostagem',
+                'energia-renovavel': 'Energia Renovável',
+                'conservacao': 'Conservação de Áreas',
+                'manejo-integrado': 'Manejo Integrado'
+            };
+            return practices[practice] || practice;
+        }
+        
+        // Em produção real, aqui seria incluído o Google Maps API para mostrar o mapa
+        // Exemplo: new google.maps.Map(document.getElementById('map'), { ... });
+    </script>
+</body>
+</html>
